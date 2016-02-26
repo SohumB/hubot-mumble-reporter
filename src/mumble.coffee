@@ -21,18 +21,14 @@ module.exports = (robot) ->
       channel = if (mumbleChannel.slice(0,1) == "#") then mumbleChannel else defaultChannel
       robot.messageRoom channel, "#{user.name} just joined #{url}&title=#{encodeURIComponent(mumbleChannel)}"
 
-  robot.router.post '/hubot/mumble', (req, res) ->
-    data = req.body
-    respond = data.channel_name
-    user = data.user_name
+  robot.respond /mumble( (help|status))?/, (res) ->
+    help = res.match[2] == "help"
 
     helptext = "go to http://sourceforge.net/projects/mumble/ , download and install the msi, then click #{url}"
 
-    help = data.text.match(/help/)
-
     robot.http("http://#{host}/mumble-django/mumble/1.json")
       .header('Accept', 'application/json')
-      .get() (err, res, body) ->
+      .get() (err, res2, body) ->
         try
           if (err)
             throw err
@@ -56,18 +52,16 @@ module.exports = (robot) ->
             lines = ["No one's online though :("]
 
           msg = if help
-            "@#{user}, #{helptext}\n#{lines.join("\n")}"
+            "#{helptext}\n#{lines.join("\n")}"
           else
-            "@#{user}, #{url} is up! \n#{lines.join("\n")}"
+            "#{url} is up! \n#{lines.join("\n")}"
 
-          robot.messageRoom respond, msg
+          res.send msg
         catch e
           console.log e
           msg = if help
-            "@#{user}, #{helptext}\nBut, the server appears to be down :("
+            "#{helptext}\nBut, the server appears to be down :("
           else
-            "@#{user}, Mumble appears to be down :("
+            "Mumble appears to be down :("
 
-          robot.messageRoom respond, msg
-
-      res.status(200).send()
+          res.send msg
