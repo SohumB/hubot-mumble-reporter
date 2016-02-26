@@ -19,7 +19,7 @@ module.exports = (robot) ->
     connection.authenticate robot.name
     connection.on 'user-move', (user) ->
       mumbleChannel = user.channel.name
-      if (!channelsToIgnore.contains(mumbleChannel))
+      if (channelsToIgnore.indexOf(mumbleChannel) < 0)
         channel = if (mumbleChannel.slice(0,1) == "#") then mumbleChannel else defaultChannel
         robot.messageRoom channel, "#{user.name} just joined #{url}&title=#{encodeURIComponent(mumbleChannel)}"
 
@@ -40,7 +40,7 @@ module.exports = (robot) ->
           lines = []
 
           visit = (channel) ->
-            if (!channelsToIgnore.contains(channel.name))
+            if (channelsToIgnore.contains(channel.name) < 0)
               namesPlusBot = channel.users.map (user) -> user.name
               names = namesPlusBot.filter (name) -> name != robot.name
               if names.length > 0
