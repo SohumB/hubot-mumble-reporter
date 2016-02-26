@@ -8,7 +8,7 @@ mumble = require 'mumble'
 host = process.env.HUBOT_MUMBLE_HOSTNAME
 server = "mumble://#{host}"
 url = "#{server}?version=1.2.0"
-channel = process.env.HUBOT_MUMBLE_CHANNEL || '#general'
+defaultChannel = process.env.HUBOT_MUMBLE_DEFAULT_CHANNEL || '#general'
 
 module.exports = (robot) ->
   mumble.connect server, {}, (error, connection) ->
@@ -18,7 +18,8 @@ module.exports = (robot) ->
     connection.authenticate robot.name
     connection.on 'user-move', (user) ->
       mumbleChannel = user.channel.name
-      robot.messageRoom channel, "#{user.name} just joined #{mumbleChannel} #{url}&title=#{encodeURIComponent(mumbleChannel)}"
+      channel = if (mumbleChannel.slice(0,1) == "#") then mumbleChannel else defaultChannel
+      robot.messageRoom channel, "#{user.name} just joined #{url}&title=#{encodeURIComponent(mumbleChannel)}"
 
   robot.router.post '/hubot/mumble', (req, res) ->
     data = req.body
