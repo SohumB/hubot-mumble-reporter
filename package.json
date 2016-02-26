@@ -1,7 +1,7 @@
 {
   "name": "hubot-mumble-reporter",
   "description": "A hubot script to report mumble events into chat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Sohum Banerjea <sohumb@gmail.com>",
   "license": "MIT",
   "keywords": [

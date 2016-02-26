@@ -14,4 +14,4 @@ Then add **hubot-mumble-reporter** to your `external-scripts.json`:
 ["hubot-mumble-reporter"]
 ```
 
-You'll then need to set `HUBOT_MUMBLE_HOSTNAME` and optionally `HUBOT_MUMBLE_DEFAULT_CHANNEL`.
+You'll then need to set `HUBOT_MUMBLE_HOSTNAME` and optionally `HUBOT_MUMBLE_DEFAULT_CHANNEL` and `HUBOT_MUMBLE_CHANNELS_TO_IGNORE`.
