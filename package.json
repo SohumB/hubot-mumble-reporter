@@ -1,0 +1,23 @@
+{
+  "name": "hubot-mumble-reporter",
+  "description": "A hubot script to report mumble events into chat",
+  "version": "0.0.1",
+  "author": "Sohum Banerjea <sohumb@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "hubot",
+    "hubot-scripts",
+    "mumble"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SohumB/hubot-mumble-reporter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SohumB/hubot-mumble-reporter/issues"
+  },
+  "main": "index.coffee",
+  "dependencies": {
+    "mumble": "^0.3.9"
+  }
+}
