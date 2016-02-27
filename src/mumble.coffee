@@ -40,7 +40,7 @@ module.exports = (robot) ->
           lines = []
 
           visit = (channel) ->
-            if (channelsToIgnore.contains(channel.name) < 0)
+            if (channelsToIgnore.indexOf(channel.name) < 0)
               namesPlusBot = channel.users.map (user) -> user.name
               names = namesPlusBot.filter (name) -> name != robot.name
               if names.length > 0
